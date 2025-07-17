@@ -1,0 +1,13 @@
+@echo off
+
+echo 🧹 Cleaning Next.js cache...
+if exist .next rmdir /s /q .next
+
+echo 🗑️  Cleaning node_modules...
+if exist node_modules rmdir /s /q node_modules
+
+echo 📦 Reinstalling dependencies...
+npm install
+
+echo 🚀 Starting development server...
+npm run dev 
