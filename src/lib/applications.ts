@@ -1,4 +1,4 @@
-import { Banknote, Calculator, Code, Key, LucideProps, QrCode, TypeOutline } from "lucide-react";
+import { Banknote, Calculator, Code, Key, LetterText, LucideProps, QrCode, TypeOutline } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 const applications: Record<
@@ -9,7 +9,12 @@ const applications: Record<
     icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
   }[]
 > = {
-  "Generator Kit": [
+  "General Kit": [
+    {
+      name: "Text Sharing",
+      link: "/kit/share-text",
+      icon: LetterText
+    },
     {
       name: "QR/Barcode Generator",
       link: "/kit/qrcode",

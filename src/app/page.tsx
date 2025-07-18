@@ -5,15 +5,7 @@ import {
   Package,
   Grid,
   Code,
-  ArrowRight,
-  Sparkles,
-  Globe,
-  CheckCircle,
-  Search,
-  User,
-  Star,
-  ShieldUser,
-  BookOpenCheck,
+  ArrowRight, 
   Zap
 } from "lucide-react";
 import applications from "@/lib/applications";
@@ -22,34 +14,17 @@ import { totalUsers } from "@/service/auth/user";
 export default async function Home() {
   const _totalUsers = await totalUsers();
   const categoryIcons = {
-    "Generator Kit": Zap,
+    "General Kit": Zap,
     "Conversion Kit": Grid,
     "Developer Suite": Code
   };
 
-  const features = [
-    {
-      icon: BookOpenCheck,
-      title: "Reliable & Consistent",
-      description: "Reliable tools built for stability and trusted results"
-    },
-    {
-      icon: Sparkles,
-      title: "Modern UI",
-      description: "Beautiful, responsive design that works on any device"
-    },
-    {
-      icon: ShieldUser,
-      title: "Private & Personalized",
-      description: "Secure Google Sign-In for a private, personalized experience"
-    }
-  ];
+ 
 
   const stats = [
     { label: "Tools Available", value: Object.values(applications).flat().length },
     { label: "Categories", value: Object.values(applications).length },
-    { label: "Users", value: _totalUsers },
-    { label: "Uptime", value: "99.9%" }
+    { label: "Users", value: _totalUsers }
   ];
 
   return (
@@ -87,17 +62,11 @@ export default async function Home() {
                   Explore Tools
                   <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
-              </Link>
-              <Link href="/auth/login">
-                <Button variant="outline" size="lg" className="px-8 py-3 text-lg font-medium border-2 hover:bg-blue-50 transition-all duration-300">
-                  <User className="w-5 h-5 mr-2" />
-                  Get Started
-                </Button>
-              </Link>
+              </Link> 
             </div>
 
             {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-2xl mx-auto">
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <div className="text-2xl font-bold text-blue-600 mb-1">{stat.value}</div>
@@ -109,39 +78,13 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose BAW?</h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              It&apos;s more than just a platform — it&apos;s your intelligent companion
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-16">
-            {features.map((feature, index) => (
-              <Card key={index} className="text-center border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-slate-50 to-blue-50">
-                <CardHeader className="pb-4">
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <feature.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <CardTitle className="text-lg font-semibold text-gray-900">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+ 
 
       {/* Tools Overview Section */}
       <section className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Tool Kits</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Featured Tool Kits</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Everything you need for development, conversion, and data analysis in one place.
             </p>
@@ -187,116 +130,7 @@ export default async function Home() {
           </div>
         </div>
       </section>
-
-      {/* User Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl font-bold text-gray-900 mb-6">Personalized Experience</h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Create your profile, track your activity, and discover other developers in the community.
-              </p>
-
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-700">Google OAuth Integration</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-700">Editable User Profiles</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-700">Activity Tracking</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <CheckCircle className="w-5 h-5 text-green-500" />
-                  <span className="text-gray-700">User Discovery</span>
-                </div>
-              </div>
-
-              <div className="mt-8">
-                <Link href="/auth/login">
-                  <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
-                    <User className="w-5 h-5 mr-2" />
-                    Create Profile
-                  </Button>
-                </Link>
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="grid grid-cols-2 gap-4">
-                <Card className="p-6 border-0 shadow-lg bg-gradient-to-br from-blue-50 to-purple-50">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                      <User className="w-4 h-4 text-white" />
-                    </div>
-                    <span className="font-semibold text-gray-900">Profile</span>
-                  </div>
-                  <p className="text-sm text-gray-600">Customize your persona and track your activity</p>
-                </Card>
-
-                <Card className="p-6 border-0 shadow-lg bg-gradient-to-br from-green-50 to-emerald-50">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                      <Search className="w-4 h-4 text-white" />
-                    </div>
-                    <span className="font-semibold text-gray-900">Discover</span>
-                  </div>
-                  <p className="text-sm text-gray-600">Find and connect with other developers</p>
-                </Card>
-
-                <Card className="p-6 border-0 shadow-lg bg-gradient-to-br from-orange-50 to-red-50">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                      <Star className="w-4 h-4 text-white" />
-                    </div>
-                    <span className="font-semibold text-gray-900">Activity</span>
-                  </div>
-                  <p className="text-sm text-gray-600">Track your tool usage and preferences</p>
-                </Card>
-
-                <Card className="p-6 border-0 shadow-lg bg-gradient-to-br from-purple-50 to-pink-50">
-                  <div className="flex items-center gap-3 mb-3">
-                    <div className="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                      <Globe className="w-4 h-4 text-white" />
-                    </div>
-                    <span className="font-semibold text-gray-900">Community</span>
-                  </div>
-                  <p className="text-sm text-gray-600">Join the growing developer community</p>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600">
-        <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to Get Started?</h2>
-          <p className="text-xl text-blue-100 mb-8">
-            Join thousands of developers who are already using BAW to boost their productivity.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/kits">
-              <Button size="lg" variant="secondary" className="px-8 py-3 text-lg font-medium">
-                <Package className="w-5 h-5 mr-2" />
-                Explore Tools
-              </Button>
-            </Link>
-            <Link href="/auth/login">
-              <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-3 text-lg font-medium">
-                <User className="w-5 h-5 mr-2" />
-                Sign Up Free
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+ 
     </div>
   );
 }

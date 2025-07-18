@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { migrate } from "@/service/mongodb";
+import { migrate } from "@/service/mongodb"; 
 await migrate();
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "书 حكمة - Shū Hikma",
-  description: "Book and Wisdom, the digital library by Eng. Hasib Nadim",
+  description: "Book and Wisdom, the digital library by Eng. Hasib Nadim", 
 };
 
 export default function RootLayout({
@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en"> 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
-import { Menu, X, Home, Package, Search, LogIn } from 'lucide-react'
+import { Menu, X, Home, Package, LogIn, Waves } from 'lucide-react'
 import { Button } from './ui/button'
 import Image from 'next/image'
 
@@ -65,8 +65,8 @@ export default function MobileNav({ user }: MobileNavProps) {
                   className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
                   onClick={toggleMenu}
                 >
-                  <Search className="w-4 h-4" />
-                  Discover
+                  <Waves className="w-4 h-4" />
+                  Sea
                 </Link>
               )}
 
