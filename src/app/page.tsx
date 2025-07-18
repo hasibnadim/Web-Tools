@@ -1,24 +1,26 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { 
-  Package, 
-  Zap, 
-  Grid, 
-  Code, 
-  ArrowRight, 
-  Users, 
-  Shield, 
-  Sparkles, 
-  Globe, 
-  CheckCircle, 
+import {
+  Package,
+  Grid,
+  Code,
+  ArrowRight,
+  Sparkles,
+  Globe,
+  CheckCircle,
   Search,
   User,
-  Star
+  Star,
+  ShieldUser,
+  BookOpenCheck,
+  Zap
 } from "lucide-react";
 import applications from "@/lib/applications";
+import { totalUsers } from "@/service/auth/user";
 
-export default function Home() {
+export default async function Home() {
+  const _totalUsers = await totalUsers();
   const categoryIcons = {
     "Generator Kit": Zap,
     "Conversion Kit": Grid,
@@ -27,14 +29,9 @@ export default function Home() {
 
   const features = [
     {
-      icon: Zap,
-      title: "Fast & Efficient",
-      description: "Lightning-fast tools designed for developers who need results quickly"
-    },
-    {
-      icon: Shield,
-      title: "Secure & Private",
-      description: "All processing happens locally - your data never leaves your browser"
+      icon: BookOpenCheck,
+      title: "Reliable & Consistent",
+      description: "Reliable tools built for stability and trusted results"
     },
     {
       icon: Sparkles,
@@ -42,16 +39,16 @@ export default function Home() {
       description: "Beautiful, responsive design that works on any device"
     },
     {
-      icon: Users,
-      title: "User Profiles",
-      description: "Personalized experience with Google OAuth integration"
+      icon: ShieldUser,
+      title: "Private & Personalized",
+      description: "Secure Google Sign-In for a private, personalized experience"
     }
   ];
 
   const stats = [
-    { label: "Tools Available", value: "5+" },
-    { label: "Categories", value: "3" },
-    { label: "Users", value: "100+" },
+    { label: "Tools Available", value: Object.values(applications).flat().length },
+    { label: "Categories", value: Object.values(applications).length },
+    { label: "Users", value: _totalUsers },
     { label: "Uptime", value: "99.9%" }
   ];
 
@@ -60,7 +57,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-20">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%239C92AC%22%20fill-opacity%3D%220.05%22%3E%3Ccircle%20cx%3D%2230%22%20cy%3D%2230%22%20r%3D%222%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-30"></div>
-        
+
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             {/* Logo & Brand */}
@@ -68,7 +65,7 @@ export default function Home() {
               <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
                 <Package className="w-5 h-5 text-white" />
               </div>
-              <span className="text-sm font-medium text-gray-700">BAW Web Tools</span>
+              <span className="text-sm font-medium text-gray-700">BAW Unified Platform</span>
             </div>
 
             {/* Main Heading */}
@@ -79,7 +76,7 @@ export default function Home() {
               Shū Hikma
             </h2>
             <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-              Book and Wisdom - A comprehensive suite of developer tools designed to enhance your productivity and streamline your workflow.
+              A unified platform where books, wisdom, and AI converge to boost your productivity, deepen your connection to the world, and inspire the exploration of new knowledge.
             </p>
 
             {/* CTA Buttons */}
@@ -118,11 +115,11 @@ export default function Home() {
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Why Choose BAW?</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Built by developers, for developers. Our tools are designed to make your daily tasks faster and more efficient.
+              It&apos;s more than just a platform — it&apos;s your intelligent companion
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-16">
             {features.map((feature, index) => (
               <Card key={index} className="text-center border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-slate-50 to-blue-50">
                 <CardHeader className="pb-4">
@@ -144,7 +141,7 @@ export default function Home() {
       <section className="py-20 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Developer Tools Suite</h2>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Tool Kits</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Everything you need for development, conversion, and data analysis in one place.
             </p>
@@ -171,7 +168,7 @@ export default function Home() {
                             <div className="flex items-center justify-between">
                               <div className="flex items-center gap-3">
                                 <div className="w-8 h-8 bg-gradient-to-br from-blue-100 to-purple-100 rounded-lg flex items-center justify-center group-hover:from-blue-200 group-hover:to-purple-200 transition-all duration-200">
-                                  <tool.icon className="w-4 h-4 text-blue-600" /> 
+                                  <tool.icon className="w-4 h-4 text-blue-600" />
                                 </div>
                                 <span className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors duration-200">
                                   {tool.name}
@@ -200,7 +197,7 @@ export default function Home() {
               <p className="text-lg text-gray-600 mb-8">
                 Create your profile, track your activity, and discover other developers in the community.
               </p>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <CheckCircle className="w-5 h-5 text-green-500" />

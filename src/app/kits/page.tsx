@@ -21,11 +21,11 @@ const page = () => {
                     <div className="text-center mb-8">
                         <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-4 shadow-lg">
                             <Package className="h-4 w-4 text-blue-500" />
-                            <span className="text-xs font-medium text-gray-700">Web Tools Collection</span>
+                            <span className="text-xs font-medium text-gray-700">Tools Collection</span>
                         </div>
                         
                         <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text text-transparent mb-2">
-                            Developer Tools
+                            Tool Kits
                         </h1>
                         
                         <p className="text-base text-gray-600 max-w-xl mx-auto">

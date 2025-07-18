@@ -1,4 +1,4 @@
-import { Banknote, Calculator, Code, Key, LucideProps, QrCode } from "lucide-react";
+import { Banknote, Calculator, Code, Key, LucideProps, QrCode, TypeOutline } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 const applications: Record<
@@ -42,6 +42,11 @@ const applications: Record<
       name: "String/JSON Size Calculator",
       link: "/kit/json-size-calculator",
       icon: Code
+    },
+    {
+      name: "Text Diff Checker",
+      link: "/kit/text-diff-checker",
+      icon: TypeOutline
     },
   ],
 };

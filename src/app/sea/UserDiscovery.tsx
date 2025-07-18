@@ -102,7 +102,7 @@ export default function UserDiscovery({ searchUsers, getRecentUsers }: UserDisco
       className="group cursor-pointer card-hover bg-white/80 backdrop-blur-sm border-0 shadow-lg hover:shadow-blue-500/20"
       onClick={() => handleUserClick(user._id)}
     >
-      <CardContent className="p-4">
+      <CardContent className="px-4">
         <div className="flex items-center space-x-3">
           <div className="relative">
             <Avatar 
@@ -120,8 +120,8 @@ export default function UserDiscovery({ searchUsers, getRecentUsers }: UserDisco
               {user.name}
             </h3>
             {user.persona && (
-              <p className="text-xs text-gray-600 mt-0.5 line-clamp-2 group-hover:text-gray-700 transition-colors duration-200">
-                {user.persona}
+              <p className="text-xs text-gray-600 mt-0.5 line-clamp-1 group-hover:text-gray-700 transition-colors duration-200">
+                 {user.persona} 
               </p>
             )}
             <div className="flex items-center gap-2 mt-1">

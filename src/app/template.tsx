@@ -3,7 +3,7 @@ import { getUser } from '@/service/auth/auth';
 import Image from 'next/image';
 import Link from 'next/link'
 import React from 'react'
-import { Package, LogIn, Home, Search, Github, ExternalLink } from 'lucide-react'
+import { Package, LogIn, Home, Github, Waves } from 'lucide-react'
 import MobileNav from '@/components/MobileNav'
 import PWAInstallButton from '@/components/PWAButton';
   
@@ -24,7 +24,7 @@ const template = async ({ children }: { children: React.ReactNode }) => {
                                 <span className="font-bold text-lg bg-gradient-to-r from-gray-900 to-blue-800 bg-clip-text text-transparent">
                                     BAW
                                 </span>
-                                <span className="text-xs text-gray-500 block -mt-1">Web Tools</span>
+                                <span className="text-xs text-gray-500 block -mt-1">Book And Wisdom</span>
                             </div>
                         </Link>
 
@@ -49,8 +49,8 @@ const template = async ({ children }: { children: React.ReactNode }) => {
                                     href="/sea"
                                     className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
                                 >
-                                    <Search className="w-4 h-4" />
-                                    Discover
+                                    <Waves className="w-4 h-4" />
+                                    Sea
                                 </Link>
                             )}
                             <PWAInstallButton />
@@ -126,15 +126,6 @@ const template = async ({ children }: { children: React.ReactNode }) => {
                                 <Github className="w-4 h-4" />
                                 <span className="hidden sm:block">GitHub</span>
                             </a>
-                            <a
-                                href="https://nd-resume.web.app"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex items-center gap-1 text-gray-600 hover:text-blue-600 transition-colors duration-200"
-                            >
-                                <ExternalLink className="w-4 h-4" />
-                                <span className="hidden sm:block">Portfolio</span>
-                            </a>
                         </div>
 
                         {/* Copyright */}
@@ -143,11 +134,11 @@ const template = async ({ children }: { children: React.ReactNode }) => {
                                 href="https://nd-resume.web.app"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="font-medium text-blue-600 hover:text-blue-700 underline underline-offset-2"
+                                className="font-medium text-blue-600 hover:text-blue-700 hover:underline underline-offset-2"
                             >
                                 H.Nadim
                             </a></p>
-                            <p className="mt-1">© 2024 BAW Web Tools. All rights reserved.</p>
+                            <p className="mt-1">© 2026 BAW Unified Platform. All rights reserved.</p>
                         </div>
                     </div>
                 </div>

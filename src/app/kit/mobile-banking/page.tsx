@@ -11,7 +11,7 @@ const page = () => {
         <div className="max-w-xl mx-auto">
           {/* Header */}
           <div className="text-center mb-4">
-            <div className="inline-flex items-center gap-1 bg-white/70 backdrop-blur rounded-full px-3 py-1.5 mb-2 shadow-sm border border-gray-200">
+            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-4 shadow-lg">
               <Calculator className="h-3.5 w-3.5 text-blue-500" />
               <span className="text-xs font-medium text-gray-700">Mobile Banking</span>
             </div>
@@ -43,7 +43,7 @@ const page = () => {
               <CashOutCalculator
                 title="bKash Cashout Calculator"
                 defaultRate={0.0185}
-                altRate={0.0145}
+                altRate={0.0149}
                 altLabel="Priyo Number"
               />
             </TabsContent>
