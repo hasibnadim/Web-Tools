@@ -16,11 +16,11 @@ const LoginButton = () => {
                         return
                     }
                     createSession(credentialResponse.credential).then(res => {
-                        if (!res) {
-                            toast.error("Login Failed");
-                            return
-                        } else {
+                        if (res === true) {
                             toast.success("Login Success");
+                            router.back();
+                        } else {
+                            toast.success(res || "Login failed");
                             router.back();
                         }
                     }).catch(() => {

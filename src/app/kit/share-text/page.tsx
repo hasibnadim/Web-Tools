@@ -6,9 +6,9 @@ import { ClipboardCheck, FileText, Loader2 } from 'lucide-react'
 import { toast } from 'sonner'
 import Editor, { loader } from '@monaco-editor/react'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { saveText } from '@/service/publicText/action'
-import { languages } from '@/app/t/[textId]/ShowText'
+import { saveText } from '@/service/publicText/action' 
 import { QRCodeCanvas } from 'qrcode.react'
+import { languages } from '@/app/t/[objectId]/ShowText'
 
 loader.config({
   paths: {
@@ -19,7 +19,7 @@ loader.config({
 const Page = () => {
   const [text, setText] = useState('function add(a, b) { return a + b; }')
   const [language, setLanguage] = useState('cpp')
-  const [id, setId] = useState('')
+  const [id, setId] = useState<number | null>(null)
   const [isLoading, setIsLoading] = useState(false)
 
   const handleSave = async () => {
@@ -35,7 +35,7 @@ const Page = () => {
   }
 
   // For SSR/CSR compatibility
-  const getShareUrl = (id: string) => {
+  const getShareUrl = (id: number) => {
     if (typeof window !== 'undefined') {
       return `${window.location.origin}/t/${id}`
     }
@@ -117,7 +117,7 @@ const Page = () => {
                     className="h-6 px-2 text-xs bg-white border border-blue-100 text-gray-700 rounded-sm shadow-none"
                     onClick={() => {
                       setText('')
-                      setId('')
+                      setId(null)
                     }}
                   >
                     <FileText className="h-3 w-3 mr-1" />
@@ -196,7 +196,7 @@ const Page = () => {
                   <ul className="text-xs text-gray-600 space-y-0.5">
                     <li>• Share or copy text instantly</li>
                     <li>• Paste, edit, and save code or notes</li>
-                    <li>• Minimal, modern, light UI</li>
+                    <li>• Text will be automatically deleted after 72 hours</li>
                   </ul>
                 </div>
               </div>

@@ -61,12 +61,12 @@ export default function MobileNav({ user }: MobileNavProps) {
               
               {user && (
                 <Link 
-                  href="/sea" 
+                  href="/ocean" 
                   className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
                   onClick={toggleMenu}
                 >
                   <Waves className="w-4 h-4" />
-                  Sea
+                  Ocean
                 </Link>
               )}
 

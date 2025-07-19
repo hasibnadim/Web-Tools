@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { deleteSession, IRgetSession, updateUser } from '@/service/auth/auth'
 import { ClientUser } from '@/lib/types'
-import { Edit2, Save, X, Calendar, Check, User, Clock, Activity, Share2, LogOut, Settings } from 'lucide-react'
+import { Edit2, Save, X, Calendar, Check, User, Clock, Share2, LogOut, Settings, Sparkles, Crown } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
 import { toast } from 'sonner'
@@ -28,6 +28,7 @@ const ProfileComp = ({ user, session, isOwnProfile = false }: { user: ClientUser
     const [personaText, setPersonaText] = useState(user.persona || '');
     const [isSaving, setIsSaving] = useState(false);
     const [copied, setCopied] = useState(false);
+    
     const profileStats = {
         toolsUsed: 0,
         lastActive: formatLastSeen(session?.lastActivity || new Date()),
@@ -83,9 +84,9 @@ const ProfileComp = ({ user, session, isOwnProfile = false }: { user: ClientUser
     const renderPersonaContent = () => {
         if (!user.persona) {
             return (
-                <div className="text-gray-500 italic text-sm">
+                <div className="text-gray-500 italic text-sm text-center py-8">
                     {isOwnProfile
-                        ? "No persona description yet. Click edit to add one!"
+                        ? "✨ No persona description yet. Click edit to add one!"
                         : "This user hasn't added a persona description yet."
                     }
                 </div>
@@ -118,157 +119,168 @@ const ProfileComp = ({ user, session, isOwnProfile = false }: { user: ClientUser
     };
 
     return (
-        <div className="max-w-2xl mx-auto mt-6 p-6 bg-white/80 backdrop-blur-sm rounded-xl shadow-lg border-0">
-            {/* Profile Header */}
-            <div className="flex items-center gap-4 mb-6">
-                <div className="relative">
-                    <Avatar 
-                        src={user.picture} 
-                        alt={getUserDisplayName(user)}
-                        fallback={getUserInitials(user)}
-                        className="h-16 w-16 ring-3 ring-blue-100"
-                    />
-                    {online === "now" && (
-                        <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-400 rounded-full border-2 border-white flex items-center justify-center">
-                            <div className="w-1 h-1 bg-white rounded-full"></div>
-                        </div>
-                    )}
-                </div>
-                
-                <div className="flex-1">
-                    <h2 className="text-xl font-bold text-gray-900">
-                        {getUserDisplayName(user)}
-                    </h2>
-                    <p className="text-blue-600 text-sm font-mono">{user.email}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                        <Calendar className="w-3 h-3 text-gray-400" />
-                        <span className="text-xs text-gray-500">Member since {profileStats.memberSince}</span>
-                    </div>
-                </div>
-
-                {/* Status Badge */}
-                <div className="flex flex-col items-end gap-1">
-                    {online === "now" ? (
-                        <span className="bg-green-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-                            Online
-                        </span>
-                    ) : online ? (
-                        <span className="bg-gray-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-                            {formatLastSeen(online)}
-                        </span>
-                    ) : null}
+        <div className="bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 py-8 px-4">
+            <div className="max-w-4xl mx-auto">
+                {/* Profile Header Card */}
+                <div className="relative mb-8">
+                    {/* Background Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-3xl blur-xl opacity-20"></div>
                     
-                    {isOwnProfile && (
-                        <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={copyProfileUrl}
-                            className="h-8 w-8 p-0 text-gray-400 hover:text-blue-600"
-                        >
-                            {copied ? <Check className="w-4 h-4" /> : <Share2 className="w-4 h-4" />}
-                        </Button>
-                    )}
+                    <div className="relative bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl border border-white/20 p-8">
+                        <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                            {/* Avatar Section */}
+                            <div className="relative group">
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full blur-lg opacity-30 group-hover:opacity-50 transition-opacity"></div>
+                                <div className="relative">
+                                    <Avatar 
+                                        src={user.picture} 
+                                        alt={getUserDisplayName(user)}
+                                        fallback={getUserInitials(user)}
+                                        className="h-24 w-24 ring-4 ring-white shadow-xl"
+                                    />
+                                    {online === "now" && (
+                                        <div className="absolute -bottom-2 -right-2 w-6 h-6 bg-green-400 rounded-full border-3 border-white flex items-center justify-center shadow-lg">
+                                            <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                            
+                            {/* User Info */}
+                            <div className="flex-1 text-center md:text-left">
+                                <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
+                                    <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-800 to-indigo-900 bg-clip-text text-transparent">
+                                        {getUserDisplayName(user)}
+                                    </h1>
+                                    {isOwnProfile && (
+                                        <Crown className="h-6 w-6 text-yellow-500" />
+                                    )}
+                                </div>
+                                
+                                <p className="text-blue-600 text-sm font-mono bg-blue-50 px-3 py-1 rounded-full inline-block mb-3">
+                                    {user.email}
+                                </p>
+                                
+                                <div className="flex items-center justify-center md:justify-start gap-4 text-sm text-gray-600">
+                                    <div className="flex items-center gap-1">
+                                        <Calendar className="w-4 h-4 text-blue-500" />
+                                        <span>Member since {profileStats.memberSince}</span>
+                                    </div>
+                                    {online === "now" ? (
+                                        <div className="flex items-center gap-1">
+                                            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                            <span className="text-green-600 font-medium">Online</span>
+                                        </div>
+                                    ) : online ? (
+                                        <div className="flex items-center gap-1">
+                                            <Clock className="w-4 h-4 text-gray-400" />
+                                            <span>Last seen {formatLastSeen(online)}</span>
+                                        </div>
+                                    ) : null}
+                                </div>
+                            </div>
+
+                            {/* Action Buttons */}
+                            <div className="flex flex-col gap-2">
+                                {isOwnProfile && (
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={copyProfileUrl}
+                                        className="h-10 w-10 p-0 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-all"
+                                    >
+                                        {copied ? <Check className="w-5 h-5" /> : <Share2 className="w-5 h-5" />}
+                                    </Button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                {/* About Section */}
+                <div className="relative -mt-4">
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl blur-xl opacity-10"></div>
+                    <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl">
+                        <CardHeader className="pb-4">
+                            <div className="flex justify-between items-center">
+                                <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-3">
+                                    <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center">
+                                        <User className="h-4 w-4 text-white" />
+                                    </div>
+                                    About
+                                </CardTitle>
+                                {isOwnProfile && !isEditingPersona ? (
+                                    <Button
+                                        variant="ghost"
+                                        size="sm"
+                                        onClick={() => setIsEditingPersona(true)}
+                                        className="text-blue-600 hover:text-blue-800 hover:bg-blue-50 h-10 px-4 rounded-xl transition-all"
+                                    >
+                                        <Edit2 className="w-4 h-4 mr-2" />
+                                        Edit
+                                    </Button>
+                                ) : isOwnProfile && isEditingPersona ? (
+                                    <div className="flex gap-2">
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={handleSavePersona}
+                                            disabled={isSaving}
+                                            className="text-green-600 hover:text-green-800 hover:bg-green-50 h-10 px-4 rounded-xl transition-all"
+                                        >
+                                            <Save className="w-4 h-4 mr-2" />
+                                            {isSaving ? 'Saving...' : 'Save'}
+                                        </Button>
+                                        <Button
+                                            variant="ghost"
+                                            size="sm"
+                                            onClick={handleCancelEdit}
+                                            disabled={isSaving}
+                                            className="text-red-600 hover:text-red-800 hover:bg-red-50 h-10 px-4 rounded-xl transition-all"
+                                        >
+                                            <X className="w-4 h-4 mr-2" />
+                                            Cancel
+                                        </Button>
+                                    </div>
+                                ) : null}
+                            </div>
+                        </CardHeader>
+                        <CardContent className="p-6">
+                            {isEditingPersona ? (
+                                <div className="space-y-4">
+                                    <Textarea
+                                        value={personaText}
+                                        onChange={(e) => setPersonaText(e.target.value)}
+                                        placeholder="Tell us about yourself... You can use basic markdown like **bold**, *italic*, # headings, and - for lists"
+                                        className="min-h-[120px] resize-none text-sm border-2 border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-xl"
+                                    />
+                                    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-100">
+                                        <p className="font-medium text-blue-900 mb-2 flex items-center gap-2">
+                                            <Sparkles className="h-4 w-4" />
+                                            Formatting Guide
+                                        </p>
+                                        <div className="grid grid-cols-2 gap-2 text-xs text-blue-800">
+                                            <div><code className="bg-white px-1 rounded">**text**</code> for <strong>bold</strong></div>
+                                            <div><code className="bg-white px-1 rounded">*text*</code> for <em>italic</em></div>
+                                            <div><code className="bg-white px-1 rounded"># Heading</code> for headings</div>
+                                            <div><code className="bg-white px-1 rounded">- item</code> for lists</div>
+                                        </div>
+                                        <div className="mt-3 text-right text-xs text-blue-600">
+                                            {personaText.length}/1000 characters
+                                        </div>
+                                    </div>
+                                </div>
+                            ) : (
+                                <div className="text-sm leading-relaxed">
+                                    {renderPersonaContent()}
+                                </div>
+                            )}
+                        </CardContent>
+                    </Card>
                 </div>
             </div>
-
-            {/* Stats Cards */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
-                <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-0 shadow-sm">
-                    <CardContent className="p-3 text-center">
-                        <Activity className="w-4 h-4 text-blue-500 mx-auto mb-1" />
-                        <div className="text-lg font-bold text-gray-900">{profileStats.toolsUsed}</div>
-                        <div className="text-xs text-gray-600">Tools Used</div>
-                    </CardContent>
-                </Card>
-                
-                <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-0 shadow-sm">
-                    <CardContent className="p-3 text-center">
-                        <Clock className="w-4 h-4 text-green-500 mx-auto mb-1" />
-                        <div className="text-lg font-bold text-gray-900">{profileStats.lastActive}</div>
-                        <div className="text-xs text-gray-600">Last Active</div>
-                    </CardContent>
-                </Card>
-                
-                <Card className="bg-gradient-to-br from-purple-50 to-pink-50 border-0 shadow-sm">
-                    <CardContent className="p-3 text-center">
-                        <User className="w-4 h-4 text-purple-500 mx-auto mb-1" />
-                        <div className="text-lg font-bold text-gray-900">Active</div>
-                        <div className="text-xs text-gray-600">Status</div>
-                    </CardContent>
-                </Card>
-            </div>
-
-            {/* About Section */}
-            <Card className="bg-white/60 backdrop-blur-sm border-0 shadow-sm">
-                <CardHeader className="pb-3">
-                    <div className="flex justify-between items-center">
-                        <CardTitle className="text-base font-semibold text-gray-900 flex items-center gap-2">
-                            <User className="h-4 w-4 text-blue-500" />
-                            About
-                        </CardTitle>
-                        {isOwnProfile && !isEditingPersona ? (
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => setIsEditingPersona(true)}
-                                className="text-blue-600 hover:text-blue-800 h-8 px-3"
-                            >
-                                <Edit2 className="w-3 h-3 mr-1" />
-                                Edit
-                            </Button>
-                        ) : isOwnProfile && isEditingPersona ? (
-                            <div className="flex gap-1">
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={handleSavePersona}
-                                    disabled={isSaving}
-                                    className="text-green-600 hover:text-green-800 h-8 px-2"
-                                >
-                                    <Save className="w-3 h-3 mr-1" />
-                                    {isSaving ? 'Saving...' : 'Save'}
-                                </Button>
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={handleCancelEdit}
-                                    disabled={isSaving}
-                                    className="text-red-600 hover:text-red-800 h-8 px-2"
-                                >
-                                    <X className="w-3 h-3 mr-1" />
-                                    Cancel
-                                </Button>
-                            </div>
-                        ) : null}
-                    </div>
-                </CardHeader>
-                <CardContent>
-                    {isEditingPersona ? (
-                        <div className="space-y-3">
-                            <Textarea
-                                value={personaText}
-                                onChange={(e) => setPersonaText(e.target.value)}
-                                placeholder="Tell us about yourself... You can use basic markdown like **bold**, *italic*, # headings, and - for lists"
-                                className="min-h-[100px] resize-none text-sm"
-                            />
-                            <div className="text-xs text-gray-500 bg-gray-50 p-2 rounded-lg">
-                                <p className="font-medium mb-1">Supports basic formatting:</p>
-                                <ul className="space-y-0.5">
-                                    <li><code>**text**</code> for <strong>bold</strong></li>
-                                    <li><code>*text*</code> for <em>italic</em></li>
-                                    <li><code># Heading</code> for headings</li>
-                                    <li><code>- item</code> for lists</li>
-                                </ul>
-                                <p className="mt-2 text-right">Character count: {personaText.length}/1000</p>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="text-sm">
-                            {renderPersonaContent()}
-                        </div>
-                    )}
-                </CardContent>
-            </Card>
         </div>
     )
 }
@@ -282,32 +294,40 @@ export const LogoutButton = ({ user }: LogoutButtonProps) => {
     const router = useRouter();
 
     return (
-        <Card className="max-w-2xl mx-auto mt-4 bg-white/80 backdrop-blur-sm border-0 shadow-lg">
-            <CardHeader className="pb-3">
-                <CardTitle className="text-base font-semibold text-gray-900 flex items-center gap-2">
-                    <Settings className="h-4 w-4 text-gray-500" />
-                    Account Actions
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3">
-                <div className="text-sm text-gray-600">
-                    <p className="font-mono text-xs bg-gray-50 p-2 rounded">Account ID: {user._id.toString()}</p>
-                </div>
-                
-                <Button 
-                    variant="outline" 
-                    onClick={() => {
-                        if (window.confirm('Are you sure you want to log out?')) {
-                            deleteSession().then(() => router.push('/auth/login'))
-                                .catch((err) => toast.error(err.message));
-                        }
-                    }}
-                    className="w-full text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
-                >
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Log Out
-                </Button>
-            </CardContent>
-        </Card>
+        <div className="max-w-4xl mx-auto px-4">
+            <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-pink-600 rounded-2xl blur-xl opacity-10"></div>
+                <Card className="relative bg-white/90 backdrop-blur-sm border-0 shadow-xl">
+                    <CardHeader className="pb-4">
+                        <CardTitle className="text-xl font-bold text-gray-900 flex items-center gap-3">
+                            <div className="w-8 h-8 bg-gradient-to-br from-gray-500 to-gray-600 rounded-lg flex items-center justify-center">
+                                <Settings className="h-4 w-4 text-white" />
+                            </div>
+                            Account Actions
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="p-6 space-y-4">
+                        <div className="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                            <p className="text-sm text-gray-600 mb-2">Account ID:</p>
+                            <p className="font-mono text-xs bg-white p-3 rounded-lg border">{user._id.toString()}</p>
+                        </div>
+                        
+                        <Button 
+                            variant="outline" 
+                            onClick={() => {
+                                if (window.confirm('Are you sure you want to log out?')) {
+                                    deleteSession().then(() => router.push('/auth/login'))
+                                        .catch((err) => toast.error(err.message));
+                                }
+                            }}
+                            className="w-full h-12 text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700 hover:border-red-300 rounded-xl transition-all font-medium"
+                        >
+                            <LogOut className="w-5 h-5 mr-2" />
+                            Log Out
+                        </Button>
+                    </CardContent>
+                </Card>
+            </div>
+        </div>
     )
 }

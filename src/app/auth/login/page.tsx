@@ -1,49 +1,75 @@
 
 import React from 'react'
 import LoginButton from './LoginButton';
-
-// NOTE: Place a cold, frosty, blueish background image in public/cold-bg.jpg
-// Example: Unsplash search for "frosted window", "snowy landscape bokeh", or "cold winter abstract".
-// Recommended size: 1920x1080 or higher for best quality.
-//  
+import { Card, CardContent } from '@/components/ui/card';
+import { Shield, Sparkles } from 'lucide-react';
 
 const Page = async () => {
-
   return (
-    <>
-      <h1 className="text-3xl font-bold text-white drop-shadow mb-6 tracking-wide">Welcome to BAW World</h1>
-      {/* continue with Google button */} 
-      <LoginButton />
+    <div className="h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4">
+      <div className="w-full max-w-md">
+        {/* Main Login Card */}
+        <Card className="bg-white/80 backdrop-blur-sm border border-slate-200/50 shadow-xl">
+          <CardContent className="p-6">
+            {/* Header */}
+                          <div className="text-center space-y-3 mb-4">
+                <div className="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full shadow-lg">
+                  <Shield className="h-7 w-7 text-white" />
+                </div>
+                <div className="space-y-1">
+                  <h1 className="text-xl font-bold bg-gradient-to-r from-slate-900 via-blue-700 to-indigo-700 bg-clip-text text-transparent">
+                    Welcome to BAW World
+                  </h1>
+                  <p className="text-xs text-slate-600 max-w-xs mx-auto">
+                    Access your personalized toolkit and utilities with secure authentication
+                  </p>
+                </div>
+              </div>
 
-    </>
+            {/* Login Section */}
+            <div className="space-y-2">
+              <div className="flex justify-center">
+                <LoginButton />
+              </div>
+              
+                            {/* Features Preview */}
+              <div className="pt-4 border-t border-slate-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Sparkles className="h-3 w-3 text-blue-600" />
+                  <span className="text-xs font-medium text-slate-700">What you&apos;ll get</span>
+                </div>
+                <div className="space-y-1 text-xs text-slate-600">
+                  <div className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-blue-500 rounded-full"></div>
+                    <span>Text diff checker & utilities</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-blue-500 rounded-full"></div>
+                    <span>QR code scanner & generator</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-blue-500 rounded-full"></div>
+                    <span>Mobile banking calculators</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-1 h-1 bg-blue-500 rounded-full"></div>
+                    <span>And much more&hellip;</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Footer */}
+        <div className="text-center mt-4">
+          <p className="text-xs text-slate-500">
+            Secure authentication powered by Google
+          </p>
+        </div>
+      </div>
+    </div>
   )
 }
-export default Page
-/**
- * <form className="w-full flex flex-col gap-5">
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full px-4 py-3 rounded-lg bg-black/40 text-white placeholder-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300 transition border border-white/30 shadow-inner"
-          autoComplete="email"
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full px-4 py-3 rounded-lg bg-black/40 text-white placeholder-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-300  transition border border-white/30 shadow-inner"
-          autoComplete="current-password"
-          required
-        />
-        <button
-          type="submit"
-          className="w-full py-3 rounded-lg bg-gradient-to-r from-blue-400 via-blue-500 to-blue-700 text-white font-semibold shadow-lg hover:from-blue-500 hover:to-blue-800 transition-all backdrop-blur-md border border-white/30 mt-2"
-        >
-          Log In
-        </button>
-      </form>
-      <div className="mt-6 text-blue-100 text-sm opacity-80">
-        <span>Don&apos;t have an account?</span>
-        <a href="/auth/register" className="ml-2 underline hover:text-white transition">Register</a>
-      </div>
- */
+
+export default Page 

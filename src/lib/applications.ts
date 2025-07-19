@@ -1,4 +1,4 @@
-import { Banknote, Calculator, Code, Key, LetterText, LucideProps, QrCode, TypeOutline } from "lucide-react";
+import { Banknote, Calculator, Code, File, Key, LetterText, LucideProps, QrCode, TypeOutline } from "lucide-react";
 import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 const applications: Record<
@@ -16,7 +16,12 @@ const applications: Record<
       icon: LetterText
     },
     {
-      name: "QR/Barcode Generator",
+      name: "File Sharing",
+      link: "/kit/share-file",
+      icon: File
+    },
+    {
+      name: "QR Generator",
       link: "/kit/qrcode",
       icon: QrCode
     },
@@ -24,11 +29,7 @@ const applications: Record<
     //   name: "QR/Barcode Scanner",
     //   link: "/kit/qr-scanner",
     // },
-    {
-      name: "Random Key Generator",
-      link: "/kit/random-key-generator",
-      icon: Key
-    },
+
   ],
   "Conversion Kit": [
     {
@@ -52,6 +53,11 @@ const applications: Record<
       name: "Text Diff Checker",
       link: "/kit/text-diff-checker",
       icon: TypeOutline
+    },
+    {
+      name: "Random Key Generator",
+      link: "/kit/random-key-generator",
+      icon: Key
     },
   ],
 };
