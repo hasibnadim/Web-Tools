@@ -1,5 +1,4 @@
-import { User, Session } from "@/service/auth/interface";
-import { BaseUser } from "./types";
+import { User, Session } from "@/service/auth/interface"; 
 
 // Validation utilities
 export const validateEmail = (email: string): boolean => {
@@ -28,25 +27,16 @@ export const isSessionExpired = (session: Session): boolean => {
   return new Date() > session.expires;
 };
 
-export const isSessionActive = (session: Session): boolean => {
-  const now = new Date();
-  const lastActivity = new Date(session.lastActivity);
-  const timeDiff = now.getTime() - lastActivity.getTime();
-  const hoursDiff = timeDiff / (1000 * 60 * 60);
-  
-  // Consider session inactive if no activity for 24 hours
-  return hoursDiff < 24;
-};
-
+ 
 // User utilities
-export const getUserDisplayName = (user: User | BaseUser): string => {
+export const getUserDisplayName = (user: User): string => {
   if (user.firstName && user.lastName) {
     return `${user.firstName} ${user.lastName}`;
   }
   return user.firstName || user.email.split('@')[0] || 'User';
 };
 
-export const getUserInitials = (user: User | BaseUser): string => {
+export const getUserInitials = (user: User): string => {
   const firstName = user.firstName || '';
   const lastName = user.lastName || '';
   

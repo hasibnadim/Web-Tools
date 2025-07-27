@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 import { Session, User } from "./auth/interface";
-import { PublicText } from "./publicText/interface";
+import { PublicText } from "./publicText/interface"; 
+import { IQatrat } from "./qatrat/interface";
 const uri = process.env.MONGODB_URI as string;
 const dbName = process.env.MONGODB_DB as string;
 const dbClient = new MongoClient(uri);
@@ -10,6 +11,7 @@ export enum CName {
     User = "users",
     Session = "sessions",
     PublicText = "public_text",
+    Qatrat = "qatrat",
 }
 export type Doc<T> = { _id: string } & T;
 export const migrate = async () => {
@@ -20,6 +22,10 @@ export const migrate = async () => {
     // CName.PublicText
     await db.collection<PublicText>(CName.PublicText).createIndex({ id: 1 }, { unique: true });
     await db.collection<PublicText>(CName.PublicText).createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+    // CName.Qatrat 
+    await db.collection<IQatrat>(CName.Qatrat).createIndex({ author: 1 }, { unique: false }); 
+    await db.collection<IQatrat>(CName.Qatrat).createIndex({ isPublic: 1 }, { unique: false });
+    await db.collection<IQatrat>(CName.Qatrat).createIndex({ overview: "text" }, { name: "overview_text_search" });
 };
 
 export default db;

@@ -1,22 +1,9 @@
 // Common types that can be used on both client and server
 // These are separate from MongoDB-specific types to avoid client-side import issues
 
-export interface BaseUser {
-  firstName: string;
-  lastName: string | null;
-  picture: string;
-  emailVerified: boolean;
-  iss: string;
-  email: string;
-  persona?: string | null;
-  password: string | null;
-}
+import { Session, User } from "@/service/auth/interface";
 
-export interface BaseSession {
-  userId: string;
-  expires: Date;
-  lastActivity: Date;
-}
+
 
 // Client-safe document type
 export type ClientDoc<T> = {
@@ -24,7 +11,7 @@ export type ClientDoc<T> = {
 } & T;
 
 // User type for client components
-export type ClientUser = ClientDoc<BaseUser>;
+export type ClientUser = ClientDoc<User>;
 
 // Session type for client components
-export type ClientSession = ClientDoc<BaseSession>; 
+export type ClientSession = ClientDoc<Session>; 

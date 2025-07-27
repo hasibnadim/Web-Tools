@@ -70,9 +70,11 @@ export const createSession = async (
         firstName: payload.given_name,
         lastName: payload.family_name,
         picture: payload.picture,
+        lastActivity: new Date(),
         emailVerified: payload.email_verified,
         iss: payload.iss,
         password: null,
+        createdAt: new Date(),
       });
     } else {
       // sync name and picture
@@ -85,6 +87,7 @@ export const createSession = async (
             firstName: payload.given_name,
             lastName: payload.family_name,
             picture: payload.picture,
+            lastActivity: new Date(),
           },
         }
       );
@@ -94,7 +97,6 @@ export const createSession = async (
     const session = await db.collection<Session>(CName.Session).insertOne({
       userId: user._id,
       expires: new Date(Date.now() + SESSION_DURATION_MS),
-      lastActivity: new Date(),
     });
 
     if (!session.insertedId) {
@@ -171,7 +173,6 @@ export const createUser = async (user: User): Promise<WithId<User>> => {
 export interface IRgetSession {
   userId: string;
   _id: string;
-  lastActivity: Date;
   expires: Date;
 }
 
@@ -253,7 +254,12 @@ export const getUser = async (id?: string): Promise<Doc<User> | null> => {
     } else {
       const session = await getSession();
       if (!session) return null;
-
+      await db
+        .collection<User>(CName.User)
+        .updateOne(
+          { _id: new ObjectId(session.userId) },
+          { $set: { lastActivity: new Date() } }
+        );
       user = await db
         .collection<User>(CName.User)
         .findOne({ _id: new ObjectId(session.userId) });

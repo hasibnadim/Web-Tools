@@ -3,17 +3,18 @@ import { ObjectId } from "mongodb";
 export interface Session {
     userId:ObjectId 
     expires:Date
-    lastActivity:Date
 }
 export interface User {
   firstName: string;
   lastName: string | null;
   picture: string;
   emailVerified: boolean;
+  lastActivity:Date | null;
   iss: string;
   email: string;
   persona?: string | null;
   password: string | null;
+  createdAt: Date;
 }
 export interface GoogleUser {
   iss: string;

@@ -1,0 +1,2 @@
+export const QATRAT_MAX_OVERVIEW_CHARACTERS = 1258;
+export const QATRAT_MAX_BODY_SIZE = 1258; // KB

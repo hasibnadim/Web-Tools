@@ -10,6 +10,7 @@ loader.config({
 import { Maximize2, Minimize2 } from 'lucide-react'
 
 export const languages = [
+    {label: 'Plain Text', value: 'plaintext'},
     { label: 'TypeScript', value: 'typescript' },
     { label: 'JavaScript', value: 'javascript' },
     { label: 'CSS', value: 'css' },

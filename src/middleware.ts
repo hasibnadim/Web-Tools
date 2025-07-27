@@ -3,8 +3,7 @@ import type { NextRequest } from 'next/server'
 
 // Define protected routes that require authentication
 const protectedRoutes = [
-  '/profile',
-  '/sea',
+  '/ocean/ai', 
 ]
 
 // Define public routes that don't need authentication (for future use)
@@ -37,7 +36,7 @@ export function middleware(request: NextRequest) {
 
   // If accessing login/register with valid token, redirect to profile
   if ((pathname === '/auth/login' || pathname === '/auth/register') && token) {
-    return NextResponse.redirect(new URL('/profile', request.url))
+    return NextResponse.redirect(new URL('/zhi', request.url))
   }
 
   // Add security headers

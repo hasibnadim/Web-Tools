@@ -1,5 +1,4 @@
-// Client-safe auth utilities (no MongoDB imports)
-import { BaseUser } from "./types";
+import { User as UserType } from "@/service/auth/interface";
 
 // Validation utilities (client-safe)
 export const validateEmail = (email: string): boolean => {
@@ -20,14 +19,14 @@ export const validatePersona = (persona: string): { isValid: boolean; error?: st
 };
 
 // User utilities (client-safe)
-export const getUserDisplayName = (user: BaseUser): string => {
+export const getUserDisplayName = (user: UserType): string => {
   if (user.firstName && user.lastName) {
     return `${user.firstName} ${user.lastName}`;
   }
   return user.firstName || user.email.split('@')[0] || 'User';
 };
 
-export const getUserInitials = (user: BaseUser): string => {
+export const getUserInitials = (user: UserType): string => {
   const firstName = user.firstName || '';
   const lastName = user.lastName || '';
   
@@ -43,7 +42,8 @@ export const getUserInitials = (user: BaseUser): string => {
 };
 
 // Time utilities (client-safe)
-export const formatLastSeen = (date: Date): string => {
+export const formatLastSeen = (date: Date | null): string => {
+  if (!date) return "";
   const now = new Date();
   const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
   

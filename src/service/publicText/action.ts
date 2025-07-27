@@ -20,7 +20,7 @@ export const  saveText = async (text: string, language: string):Promise<number> 
         text,
         language,
         createdAt: new Date(),
-        expiresAt: new Date(Date.now() + 72 * 60 * 60 * 1000)
+        expiresAt: new Date(Date.now() + 10 * 24 * 60 * 60 * 1000)
     }
     await db.collection<PublicText>(CName.PublicText).insertOne(publicText);
     return publicText.id;

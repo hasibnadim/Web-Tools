@@ -3,16 +3,14 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { Menu, X, Home, Package, LogIn, Waves } from 'lucide-react'
-import { Button } from './ui/button'
-import Image from 'next/image'
+import { Button } from './ui/button' 
+import UserBullet from './UserBullet' 
+import { ClientUser } from '@/lib/types'
 
-interface User {
-  firstName: string
-  picture: string
-}
+ 
 
 interface MobileNavProps {
-  user: User | null
+  user: ClientUser | null
 }
 
 export default function MobileNav({ user }: MobileNavProps) {
@@ -27,23 +25,23 @@ export default function MobileNav({ user }: MobileNavProps) {
         variant="ghost"
         size="sm"
         onClick={toggleMenu}
-        className="p-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+        className="p-2 text-gray-200 hover:text-blue-400 hover:bg-slate-800 bg-slate-900 z-50 relative"
       >
-        {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        {isOpen ? <X className="w-5 h-5 text-white" /> : <Menu className="w-5 h-5" />}
       </Button>
 
       {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 bg-black/20 backdrop-blur-sm" onClick={toggleMenu}>
+        <div className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm" onClick={toggleMenu}>
           <div 
-            className="absolute right-0 top-16 w-64 bg-white/95 backdrop-blur-xl border-l border-white/20 shadow-xl"
+            className="absolute right-0 top-16 w-64 bg-slate-900/95 backdrop-blur-xl border-l border-slate-800 shadow-xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="p-4 space-y-2">
               {/* Navigation Links */}
               <Link 
                 href="/" 
-                className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+                className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-200 hover:text-blue-400 hover:bg-slate-800 rounded-lg transition-all duration-200"
                 onClick={toggleMenu}
               >
                 <Home className="w-4 h-4" />
@@ -51,8 +49,8 @@ export default function MobileNav({ user }: MobileNavProps) {
               </Link>
               
               <Link 
-                href="/kits" 
-                className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+                href="/kit" 
+                className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-200 hover:text-blue-400 hover:bg-slate-800 rounded-lg transition-all duration-200"
                 onClick={toggleMenu}
               >
                 <Package className="w-4 h-4" />
@@ -62,7 +60,7 @@ export default function MobileNav({ user }: MobileNavProps) {
               {user && (
                 <Link 
                   href="/ocean" 
-                  className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+                  className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-200 hover:text-blue-400 hover:bg-slate-800 rounded-lg transition-all duration-200"
                   onClick={toggleMenu}
                 >
                   <Waves className="w-4 h-4" />
@@ -71,31 +69,15 @@ export default function MobileNav({ user }: MobileNavProps) {
               )}
 
               {/* Divider */}
-              <div className="border-t border-gray-200 my-2"></div>
+              <div className="border-t border-slate-800 my-2"></div>
 
               {/* User Section */}
               {user ? (
-                <Link 
-                  href="/profile"
-                  className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
-                  onClick={toggleMenu}
-                >
-                  <div className="relative">
-                    <Image
-                      className="w-6 h-6 rounded-full ring-2 ring-white shadow-sm"
-                      src={user.picture}
-                      alt="Profile"
-                      width={24}
-                      height={24}
-                    />
-                    <div className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-500 rounded-full border border-white"></div>
-                  </div>
-                  <span>{user.firstName}</span>
-                </Link>
+                <UserBullet user={user} />
               ) : (
                 <Link 
                   href="/auth/login"
-                  className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-lg transition-all duration-200"
+                  className="flex items-center gap-3 px-3 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-700 to-purple-800 hover:from-blue-800 hover:to-purple-900 rounded-lg transition-all duration-200"
                   onClick={toggleMenu}
                 >
                   <LogIn className="w-4 h-4" />
