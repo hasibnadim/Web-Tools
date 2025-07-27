@@ -1,10 +1,10 @@
 import { Toaster } from '@/components/ui/sonner'
-import { getUser } from '@/service/auth/auth'; 
+import { getUser } from '@/service/auth/auth';
 import Link from 'next/link'
 import React from 'react'
-import { Package, LogIn, Home, Waves } from 'lucide-react'
+import { Package, LogIn, Home, Waves, BrainCircuit } from 'lucide-react'
 import MobileNav from '@/components/MobileNav'
-import PWAInstallButton from '@/components/PWAButton'; 
+import PWAInstallButton from '@/components/PWAButton';
 import UserBullet from '@/components/UserBullet';
 
 const template = async ({ children }: { children: React.ReactNode }) => {
@@ -52,7 +52,7 @@ const template = async ({ children }: { children: React.ReactNode }) => {
                                     >
                                         <Waves className="w-4 h-4" />
                                         Ocean
-                                    </Link> 
+                                    </Link>
                                 </>
                             )}
                             <PWAInstallButton />
@@ -61,6 +61,10 @@ const template = async ({ children }: { children: React.ReactNode }) => {
                         {/* User Menu & Mobile Nav */}
                         <div className="flex items-center gap-3">
                             {/* Desktop User Menu */}
+                            <Link href={"/hikma-ai"} className="flex items-center gap-1  text-sm font-medium text-gray-200 hover:text-blue-400  rounded-lg transition-all duration-200"
+                            >  
+                            <BrainCircuit className="w-4 h-4 hover:rotate-90 transition-all duration-500" /> <p><small className='transition-all duration-500'>Hikma</small><span className='font-mono font-light'>AI</span></p>
+                            </Link>
                             <div className="hidden md:block">
                                 {user ? (
                                     <UserBullet user={user} />

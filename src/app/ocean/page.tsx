@@ -110,7 +110,7 @@ export default function OceanPage() {
                   Ocean of wisdom
                 </h1>
                 <Link
-                  href="/ocean/ai"
+                  href="/ocean/book"
                   className="inline-flex items-center gap-1 px-3 py-1.5 bg-gradient-to-r from-purple-700 to-blue-700 text-white font-semibold rounded-xl shadow hover:from-purple-800 hover:to-blue-800 transition-all text-xs border border-[#2d1e4d]"
                   title="Go to Ocean of Intelligence"
                 >

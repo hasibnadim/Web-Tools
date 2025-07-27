@@ -6,18 +6,24 @@ import { getUser } from '@/service/auth/auth';
 import { useAuth } from '@/hooks/useAuth';
 import BWMarkdown from '@/components/BWMarkdown';
 import { Button } from '@/components/ui/button';
-import { Edit, Eye, EyeOff } from 'lucide-react';
+import { Edit, Eye, EyeOff, Minimize2, Maximize2 } from 'lucide-react';
 import { QataratWithId } from '@/components/QatarahCard';
 import { ClientUser } from '@/lib/types';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { publishQatrat, makePrivate, updateQatrat, likeQatrat, unlikeQatrat } from '@/service/qatrat/action';
 import Comment from './Comment';
 import Link from 'next/link';
+import { Editor, loader } from '@monaco-editor/react';
+import { Textarea } from '@/components/ui/textarea';
 
- 
- 
+loader.config({
+  paths: {
+    vs: '/monaco/vs',
+  },
+})
 
-const TheQatarah = () => { 
+
+const TheQatarah = () => {
   const params = useParams();
   const qatarahId = params?.qatarahId as string;
   const auth = useAuth();
@@ -31,6 +37,8 @@ const TheQatarah = () => {
   const [saving, setSaving] = useState(false);
   const [liked, setLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const [bodyFullscreen, setBodyFullscreen] = useState(false);
+  const [preview, setPreview] = useState(false);
 
   useEffect(() => {
     if (!qatarahId) return;
@@ -55,7 +63,7 @@ const TheQatarah = () => {
       } catch {
         setAuthor(null);
       }
- 
+
       // setComments(mapToQatarahComments(rawComments)); // This line is removed
       // setCommentText(''); // This line is removed
       // setCommentLoading(false); // This line is removed
@@ -101,7 +109,7 @@ const TheQatarah = () => {
     }
   };
 
- 
+
 
   if (loading) {
     return <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#181622] via-[#221a3a] to-[#2d1e4d] text-purple-200">Loading...</div>;
@@ -116,7 +124,7 @@ const TheQatarah = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#181622] via-[#221a3a] to-[#2d1e4d] flex flex-col items-center py-4 px-1">
-      <div className="max-w-2xl w-full bg-[#231a36]/90 rounded-2xl shadow-2xl border border-[#2d1e4d] p-3 sm:p-6 md:p-8 relative backdrop-blur-xl">
+      <div className="max-w-6xl w-full mx-auto bg-[#231a36]/90 rounded-2xl shadow-2xl border border-[#2d1e4d] p-3 sm:p-6 md:p-8 relative backdrop-blur-xl">
         {/* Sticky Author/Status Header */}
         <div className="sticky top-0 z-10 bg-[#231a36]/80 rounded-t-2xl flex items-center gap-3 px-2 py-3 border-b border-[#2d1e4d] mb-4 shadow-sm">
           {author && (
@@ -137,58 +145,114 @@ const TheQatarah = () => {
         </div>
         {/* Overview/Body Section */}
         <div className="mt-2">
-        {editing ? (
-          <div className="space-y-3">
-            <textarea
-              className="w-full min-h-[48px] rounded-lg bg-[#231a36] border border-[#2d1e4d] text-purple-100 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-              value={editOverview}
-              onChange={e => setEditOverview(e.target.value)}
-              placeholder="Overview..."
-              maxLength={600}
-            />
-            <textarea
-              className="w-full min-h-[90px] rounded-lg bg-[#231a36] border border-[#2d1e4d] text-purple-100 p-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400"
-              value={editBody}
-              onChange={e => setEditBody(e.target.value)}
-              placeholder="Body..."
-              maxLength={2000}
-            />
-            <div className="flex gap-2 justify-end">
-              <Button variant="ghost" size="sm" onClick={handleSave} disabled={saving} className="text-green-300 border border-green-900 hover:bg-green-900/20 px-3">
-                {saving ? 'Saving...' : 'Save'}
-              </Button>
-              <Button variant="ghost" size="sm" onClick={() => setEditing(false)} className="text-red-300 border border-red-900 hover:bg-red-900/20 px-3">
-                Cancel
-              </Button>
-            </div>
-          </div>
-        ) : (
-          <>
-            <div className="mb-4"> 
-              <div className="rounded-lg bg-[#231a36]/80 p-3 border border-[#2d1e4d] text-sm">
-                <BWMarkdown>{qatarah.overview}</BWMarkdown>
+          {editing ? (
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 mb-2">
+                <Button
+                  type="button"
+                  variant={preview ? 'default' : 'ghost'}
+                  size="sm"
+                  className="text-xs px-2 py-1"
+                  onClick={() => setPreview(p => !p)}
+                >
+                  {preview ? <EyeOff className="w-4 h-4 mr-1" /> : <Eye className="w-4 h-4 mr-1" />}
+                  {preview ? 'Hide Preview' : 'Preview'}
+                </Button>
+              </div>
+              {/* Overview Editor */}
+              {preview ? (
+                <div className="bg-[#231a36]/90 rounded-xl p-6 border border-[#025908] mb-2">
+                  <BWMarkdown>{editOverview}</BWMarkdown>
+                </div>
+              ) : (
+                <Textarea
+                  value={editOverview}
+                  onChange={(e) => setEditOverview(e.target.value)}
+                  placeholder="# Your Title\nWrite a brief overview with **bold**, *italic*, ~~strikethrough~~, and [links](url)..."
+                  className="min-h-[80px] resize-none border border-[#2d1e4d] rounded-xl bg-[#231a36] focus:border-purple-500 focus:ring-2 focus:ring-purple-400 text-purple-100 text-base px-4 py-3 shadow-sm transition-all duration-200 placeholder-purple-400"
+                />
+              )}
+              {/* Body Editor */}
+              {preview ? (
+                <div className="bg-[#231a36]/90 rounded-xl p-6 border border-[#2d1e4d] min-h-[65vh] overflow-y-auto">
+                  <BWMarkdown>{editBody}</BWMarkdown>
+                </div>
+              ) : (
+                <div className={bodyFullscreen ? "fixed inset-0 z-50 bg-[#181622] flex flex-col items-center justify-center p-4" : ""}>
+                  
+                <Button
+                  type="button"
+                  variant={bodyFullscreen ? 'default' : 'ghost'}
+                  size="sm"
+                  className="text-xs px-2 py-1"
+                  onClick={() => setBodyFullscreen(f => !f)}
+                >
+                  {bodyFullscreen ? <Minimize2 className="w-4 h-4 mr-1" /> : <Maximize2 className="w-4 h-4 mr-1" />}
+                  {bodyFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
+                </Button>
+                  <div className={bodyFullscreen ? "w-full max-w-4xl mx-auto" : ""}>
+                    <Editor
+                      height={bodyFullscreen ? "80vh" : "65vh"}
+                      width="100%"
+                      language="markdown"
+                      value={editBody}
+                      theme="vs-dark"
+                      onChange={e => setEditBody(e ?? "")}
+                      options={{
+                        minimap: { enabled: true },
+                        cursorBlinking: "smooth",
+                        fontSize: 15,
+                        wordWrap: 'on',
+                        scrollBeyondLastLine: false,
+                        scrollbar: { alwaysConsumeMouseWheel: false },
+                        overviewRulerLanes: 0,
+                        renderLineHighlight: 'none',
+                        lineNumbers: 'off',
+                        folding: false,
+                        tabSize: 2,
+                        automaticLayout: true,
+                      }}
+                    />
+                  </div>
+          
+                </div>
+              )}
+              <div className="flex gap-2 justify-end mt-2">
+                <Button variant="ghost" size="sm" onClick={handleSave} disabled={saving} className="text-green-300 border border-green-900 hover:bg-green-900/20 px-3">
+                  {saving ? 'Saving...' : 'Save'}
+                </Button>
+                <Button variant="ghost" size="sm" onClick={() => setEditing(false)} className="text-red-300 border border-red-900 hover:bg-red-900/20 px-3">
+                  Cancel
+                </Button>
               </div>
             </div>
-            {canViewBody ? (
-              <div className="mb-4"> 
-                <div className="rounded-lg bg-[#231a36]/80 p-3 border border-[#2d1e4d] text-sm">
-                  <BWMarkdown>{qatarah.body}</BWMarkdown>
+          ) : (
+            <>
+              <div className="mb-4">
+                <div className="rounded-lg bg-[#231a36]/80 p-3 border border-[#025908] text-sm">
+                  <BWMarkdown>{qatarah.overview}</BWMarkdown>
                 </div>
               </div>
-            ) : !auth.isAuthenticated && (
-              <div className="rounded-xl bg-gradient-to-br from-[#231a36]/90 to-[#1a1330]/90 border border-[#2d1e4d] text-sm flex items-center justify-center p-4 shadow-lg">
-                <Link href="/auth/login" className="flex items-center gap-2 cursor-pointer hover:bg-blue-900/50 hover:underline rounded-xl p-2">
-                  <svg width="20" height="20" viewBox="0 0 24 24" className="text-purple-400" fill="none" stroke="currentColor" strokeWidth="1.7">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeOpacity="0.2" />
-                    <path d="M12 8v4" stroke="currentColor" strokeLinecap="round" />
-                    <circle cx="12" cy="16" r="1" fill="currentColor" />
-                  </svg>
-                  <span className="text-purple-300 text-xs sm:text-sm font-medium">Login to view the body</span>
-                </Link>
-              </div>
-            )}
-          </>
-        )}
+              {canViewBody ? (
+                <div className="mb-4">
+                  <div className="rounded-lg bg-[#231a36]/80 p-3 border border-[#2d1e4d] text-sm">
+                    <BWMarkdown>{qatarah.body}</BWMarkdown>
+                  </div>
+                </div>
+              ) : !auth.isAuthenticated && (
+                <div className="rounded-xl bg-gradient-to-br from-[#231a36]/90 to-[#1a1330]/90 border border-[#2d1e4d] text-sm flex items-center justify-center p-4 shadow-lg">
+                  <Link href="/auth/login" className="flex items-center gap-2 cursor-pointer hover:bg-blue-900/50 hover:underline rounded-xl p-2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" className="text-purple-400" fill="none" stroke="currentColor" strokeWidth="1.7">
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeOpacity="0.2" />
+                      <path d="M12 8v4" stroke="currentColor" strokeLinecap="round" />
+                      <circle cx="12" cy="16" r="1" fill="currentColor" />
+                    </svg>
+                    <span className="text-purple-300 text-xs sm:text-sm font-medium">Login to view the body</span>
+                  </Link>
+                </div>
+              )}
+            </>
+          )}
         </div>
         {/* Like/Comment Section */}
         <div className="flex items-center gap-3 mb-5 mt-2">
