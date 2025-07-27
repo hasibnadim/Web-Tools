@@ -22,6 +22,8 @@ export const migrate = async () => {
     // CName.PublicText
     await db.collection<PublicText>(CName.PublicText).createIndex({ id: 1 }, { unique: true });
     await db.collection<PublicText>(CName.PublicText).createIndex({ expiresAt: 1 }, { expireAfterSeconds: 0 });
+    await db.collection<PublicText>(CName.PublicText).createIndex({ userId: 1 }, { unique: false });
+    
     // CName.Qatrat 
     await db.collection<IQatrat>(CName.Qatrat).createIndex({ author: 1 }, { unique: false }); 
     await db.collection<IQatrat>(CName.Qatrat).createIndex({ isPublic: 1 }, { unique: false });

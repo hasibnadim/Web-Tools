@@ -10,7 +10,7 @@ loader.config({
 import { Maximize2, Minimize2 } from 'lucide-react'
 
 export const languages = [
-    {label: 'Plain Text', value: 'plaintext'},
+    { label: 'Plain Text', value: 'plaintext' },
     { label: 'TypeScript', value: 'typescript' },
     { label: 'JavaScript', value: 'javascript' },
     { label: 'CSS', value: 'css' },
@@ -104,13 +104,15 @@ const ShowText = ({ text, language }: ShowTextProps) => {
                     language={theLang}
                     theme="vs-dark"
                     loading="Loading Monaco Editor..."
+
                     options={{
                         readOnly: true,
                         fontSize: 13,
                         minimap: { enabled: false },
                         lineNumbersMinChars: 2,
                         padding: { top: 6, bottom: 6 },
-                        scrollbar: { vertical: 'hidden', horizontal: 'hidden' },
+                        scrollbar: { alwaysConsumeMouseWheel: false, vertical: 'hidden', horizontal: 'hidden' },
+
                         scrollBeyondLastLine: false,
                         overviewRulerLanes: 0,
                         renderLineHighlight: 'none',

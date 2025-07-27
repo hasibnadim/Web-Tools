@@ -100,31 +100,30 @@ export default function UserDiscovery({ searchUsers, getRecentUsers }: UserDisco
   // UserCard: Redesigned for a more modern, flow-based look
   const UserCard = ({ user }: { user: User }) => (
     <Card
-      className="group cursor-pointer bg-gradient-to-br from-white/90 to-blue-50 border-0 shadow-md hover:shadow-blue-400/30 transition-all duration-200 hover:scale-[1.025]"
+      className="group cursor-pointer bg-gradient-to-br from-gray-900/90 to-blue-950 border-0 shadow-md hover:shadow-blue-800/30 transition-all duration-200 hover:scale-[1.025]"
       onClick={() => handleUserClick(user._id)}
     >
-      <CardContent className="px-5 py-4">
-        <div className="flex items-center gap-4">
+      <CardContent className="px-4 py-3">
+        <div className="flex items-center gap-3">
           <div>
-            <Avatar className="h-14 w-14 ring-2 ring-blue-200 group-hover:ring-blue-400 transition-all duration-300">
+            <Avatar className="h-12 w-12 ring-2 ring-blue-900 group-hover:ring-blue-400 transition-all duration-300">
               <AvatarImage src={user.picture} />
-              <AvatarFallback className="bg-gradient-to-br from-purple-700 to-indigo-700 text-white">
+              <AvatarFallback className="bg-gradient-to-br from-purple-900 to-indigo-900 text-white">
                 {user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
               </AvatarFallback>
             </Avatar>
-
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-700 transition-colors truncate">
+            <h3 className="text-base font-semibold text-gray-100 group-hover:text-blue-300 transition-colors truncate">
               {user.name}
             </h3>
             {user.persona && (
-              <p className="text-xs text-gray-600 mt-0.5 line-clamp-1 group-hover:text-gray-800 transition-colors">
+              <p className="text-xs text-gray-400 mt-0.5 line-clamp-1 group-hover:text-gray-200 transition-colors">
                 {user.persona}
               </p>
             )}
           </div>
-          <ArrowRight className="h-5 w-5 text-blue-300 group-hover:text-blue-600 group-hover:translate-x-1 transition-all duration-200" />
+          <ArrowRight className="h-5 w-5 text-blue-700 group-hover:text-blue-400 group-hover:translate-x-1 transition-all duration-200" />
         </div>
       </CardContent>
     </Card>
@@ -135,12 +134,10 @@ export default function UserDiscovery({ searchUsers, getRecentUsers }: UserDisco
   const isLoading = isSearchMode ? isSearching : isLoadingRecent;
 
   return (
-    <div className="w-full max-w-5xl mx-auto py-8 px-2 md:px-0">
+    <div className="w-full max-w-5xl mx-auto py-6 px-2 md:px-0">
       {/* Header Section */}
-      <div className="text-center mb-8">
-
-
-        <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+      <div className="text-center mb-6">
+        <p className="text-gray-400 text-base max-w-2xl mx-auto">
           {isSearchMode
             ? `Searching for "${searchQuery}" in our community`
             : "Explore recent community members and connect with fellow knowledge seekers"
@@ -149,34 +146,34 @@ export default function UserDiscovery({ searchUsers, getRecentUsers }: UserDisco
       </div>
 
       {/* Compact & Attractive Search Input */}
-      <div className="max-w-2xl mx-auto mb-8">
+      <div className="max-w-2xl mx-auto mb-6">
         <div className="relative group">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-          <div className="relative bg-white/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-2">
-            <div className="flex items-center gap-3">
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-purple-900 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+          <div className="relative bg-gray-900/90 backdrop-blur-sm rounded-2xl shadow-xl border border-white/10 p-2">
+            <div className="flex items-center gap-2">
               <div className="flex-1 relative">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-500" />
                 <Input
                   type="text"
                   placeholder="Search for people by name..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-4 h-12 text-base border-0 bg-transparent focus:ring-0 focus:outline-none placeholder-gray-400"
+                  className="pl-12 pr-4 h-10 text-sm border-0 bg-transparent text-gray-100 focus:ring-0 focus:outline-none placeholder-gray-500"
                   autoComplete="off"
                 />
               </div>
               {searchQuery && (
                 <button
                   onClick={handleClearSearch}
-                  className="flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+                  className="flex items-center justify-center w-7 h-7 rounded-full bg-gray-800 hover:bg-gray-700 transition-colors"
                 >
-                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               )}
-              <div className="w-px h-8 bg-gray-200"></div>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="w-px h-7 bg-gray-800"></div>
+              <div className="flex items-center gap-1 text-xs text-gray-400">
                 <Users className="h-4 w-4" />
                 <span>{currentUsers.length} {isSearchMode ? 'found' : 'members'}</span>
               </div>
@@ -188,34 +185,34 @@ export default function UserDiscovery({ searchUsers, getRecentUsers }: UserDisco
       {/* Content Section */}
       <div className="w-full">
         {isLoading ? (
-          <div className="flex flex-col items-center py-16">
+          <div className="flex flex-col items-center py-12">
             <div className="relative">
-              <div className="w-16 h-16 border-4 border-blue-200 rounded-full animate-spin"></div>
-              <div className="absolute inset-0 w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-12 h-12 border-4 border-blue-900 rounded-full animate-spin"></div>
+              <div className="absolute inset-0 w-12 h-12 border-4 border-blue-700 border-t-transparent rounded-full animate-spin"></div>
             </div>
-            <p className="text-gray-600 mt-4 text-lg">
+            <p className="text-gray-400 mt-3 text-base">
               {isSearchMode ? 'Searching for people...' : 'Loading community members...'}
             </p>
           </div>
         ) : currentUsers.length > 0 ? (
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {currentUsers.map((user) => (
               <UserCard key={user._id} user={user} />
             ))}
           </div>
         ) : (
-          <div className="flex flex-col items-center py-16">
-            <div className="w-20 h-20 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center mb-6">
+          <div className="flex flex-col items-center py-12">
+            <div className="w-16 h-16 bg-gradient-to-br from-gray-800 to-gray-900 rounded-full flex items-center justify-center mb-4">
               {isSearchMode ? (
-                <Search className="h-10 w-10 text-gray-400" />
+                <Search className="h-8 w-8 text-gray-600" />
               ) : (
-                <Users className="h-10 w-10 text-gray-400" />
+                <Users className="h-8 w-8 text-gray-600" />
               )}
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+            <h3 className="text-lg font-semibold text-gray-100 mb-1">
               {isSearchMode ? 'No Results Found' : 'No Community Members Yet'}
             </h3>
-            <p className="text-gray-600 text-center max-w-md">
+            <p className="text-gray-400 text-center max-w-md text-sm">
               {isSearchMode
                 ? `No users found for "${searchQuery}". Try a different search term or browse recent members.`
                 : 'Be the first to join our amazing community of knowledge seekers!'
@@ -224,7 +221,7 @@ export default function UserDiscovery({ searchUsers, getRecentUsers }: UserDisco
             {isSearchMode && (
               <button
                 onClick={handleClearSearch}
-                className="mt-4 inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 font-medium transition-colors"
+                className="mt-3 inline-flex items-center gap-1 text-blue-400 hover:text-blue-300 font-medium transition-colors text-sm"
               >
                 <ArrowRight className="h-4 w-4 rotate-180" />
                 Back to Recent Members
@@ -235,10 +232,10 @@ export default function UserDiscovery({ searchUsers, getRecentUsers }: UserDisco
       </div>
 
       {/* Footer Info */}
-      <div className="text-center mt-12">
-        <div className="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full">
-          <Heart className="h-4 w-4 text-blue-500" />
-          <span className="text-sm text-blue-700 font-medium">
+      <div className="text-center mt-8">
+        <div className="inline-flex items-center gap-1 bg-blue-950 px-3 py-1.5 rounded-full">
+          <Heart className="h-4 w-4 text-blue-400" />
+          <span className="text-xs text-blue-200 font-medium">
             {isSearchMode ? 'Search Results' : 'Recent Community Members'}
           </span>
         </div>
